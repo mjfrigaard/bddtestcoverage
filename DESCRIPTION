@@ -1,0 +1,16 @@
+Package: bddtestcoverage
+Title: BDD test functions and coverage
+Version: 0.0.0.9000
+Authors: Martin Frigaard <mjfrigaard@pm.me> [aut, cre]
+Description: Package designed to try BDD functions and test coverage.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 4
+URL: https://github.com/mjfrigaard/bddtestcoverage
+Imports: 
+    ggplot2movies,
+    logger

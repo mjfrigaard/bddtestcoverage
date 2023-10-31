@@ -11,7 +11,7 @@ I noticed the new `it()` functions don't seem to load helper functions after `lo
 ```
 R
 ├── bddtestcoverage-package.R
-└── tidy_ggp2movies.R
+└── collapse_movies_genres.R
 ```
 
 
@@ -25,7 +25,7 @@ tests
 │   │   ├── make_test_data.R
 │   │   └── test_data.rds
 │   ├── helper.R
-│   └── test-tidy_ggp2movies.R
+│   └── test-collapse_movies_genres.R
 └── testthat.R
 ```
 
@@ -53,14 +53,14 @@ test_logger <- function(msg, start = NULL, end = NULL) {
 }
 ```
 
-In `test-tidy_ggp2movies.R`:
+In `test-collapse_movies_genres.R`:
 
 When the `test_logger()` helper is inside `it()` (with a nested `describe()`):
 
 ```r
 testthat::describe(
   description = "
-    Feature: tidy_ggp2movies Function
+    Feature: collapse_movies_genres Function
       In order to tidy up the movie data
       As a data scientist
       I want to convert ggplot2moves::movies into a 'tidy' data.frame", code = {
@@ -74,14 +74,14 @@ testthat::describe(
         testthat::it(
           description = "
       Scenario: Correct formatting of mpaa as factor with specified levels and labels
-          When the function tidy_ggp2movies is applied to the movies_data
+          When the function collapse_movies_genres is applied to the movies_data
           Then the 'mpaa' column should be of type factor
           And have levels 'G', 'PG', 'PG-13', 'R', 'NC-17'",
           code = {
             test_logger(start = "fixture", msg = "test_data.rds")
             # load fixture
             test_data <- readRDS(file = test_path("fixtures", "test_data.rds"))
-            tidy_ggp2 <- tidy_ggp2movies(test_data)
+            tidy_ggp2 <- collapse_movies_genres(test_data)
             testthat::expect_true(is.factor(tidy_ggp2$mpaa))
             testthat::expect_equal(
               object = levels(tidy_ggp2$mpaa),
@@ -105,9 +105,9 @@ The test fails (can't find the helper).
 devtools:::test_active_file()
 [ FAIL 1 | WARN 0 | SKIP 0 | PASS 0 ]
 
-── Error (test-tidy_ggp2movies.R:22:13): 
+── Error (test-collapse_movies_genres.R:22:13): 
       Scenario: Correct formatting of mpaa as factor with specified levels and labels
-          When the function tidy_ggp2movies is applied to the movies_data
+          When the function collapse_movies_genres is applied to the movies_data
           Then the 'mpaa' column should be of type factor
           And have levels 'G', 'PG', 'PG-13', 'R', 'NC-17' ──
 Error in `test_logger(start = "fixture", msg = "test_data.rds")`: could not find function "test_logger"
@@ -119,7 +119,7 @@ And if I switch it to a single `describe()` function:
 ```r
 testthat::describe(
   description = "
-    Feature: tidy_ggp2movies Function
+    Feature: collapse_movies_genres Function
       In order to tidy up the movie data
       As a data scientist
       I want to convert ggplot2moves::movies into a 'tidy' data.frame", code = {
@@ -130,7 +130,7 @@ testthat::describe(
           'title', 'year', 'length', 'budget', 'rating',
           'votes', 'mpaa', 'Action', 'Animation', 'Comedy',
           'Drama', 'Documentary', 'Romance', and 'Short'
-        When the function tidy_ggp2movies is applied to the movies_data
+        When the function collapse_movies_genres is applied to the movies_data
         Then the 'mpaa' column should be of type factor
         And have levels 'G', 'PG', 'PG-13', 'R', 'NC-17'",
       code = {
@@ -138,7 +138,7 @@ testthat::describe(
         # load fixture
         test_data <-
           readRDS(file = test_path("fixtures", "test_data.rds"))
-        tidy_ggp2 <- tidy_ggp2movies(test_data)
+        tidy_ggp2 <- collapse_movies_genres(test_data)
         testthat::expect_true(is.factor(tidy_ggp2$mpaa))
         testthat::expect_equal(
           object = levels(tidy_ggp2$mpaa),
@@ -159,13 +159,13 @@ The test still fails:
 ```r
 [ FAIL 1 | WARN 0 | SKIP 0 | PASS 0 ]
 
-── Error (test-tidy_ggp2movies.R:54:9): 
+── Error (test-collapse_movies_genres.R:54:9): 
       Scenario: Correct formatting of mpaa as factor with specified levels and labels
         Given a dataframe 'movies_data' with columns:
           'title', 'year', 'length', 'budget', 'rating',
           'votes', 'mpaa', 'Action', 'Animation', 'Comedy',
           'Drama', 'Documentary', 'Romance', and 'Short'
-        When the function tidy_ggp2movies is applied to the movies_data
+        When the function collapse_movies_genres is applied to the movies_data
         Then the 'mpaa' column should be of type factor
         And have levels 'G', 'PG', 'PG-13', 'R', 'NC-17' ──
 Error in `test_logger(start = "fixture", msg = "test_data.rds")`: could not find function "test_logger"
@@ -177,7 +177,7 @@ But if the helper is inside `test_that()` (with nested `describe()`):
 ```r
 testthat::describe(
   description = "
-    Feature: tidy_ggp2movies Function
+    Feature: collapse_movies_genres Function
       In order to tidy up the movie data
       As a data scientist
       I want to convert ggplot2moves::movies into a 'tidy' data.frame", code = {
@@ -190,14 +190,14 @@ testthat::describe(
         'Drama', 'Documentary', 'Romance', and 'Short'", code = {
         testthat::test_that("
       Scenario: Correct formatting of mpaa as factor with specified levels and labels
-          When the function tidy_ggp2movies is applied to the movies_data
+          When the function collapse_movies_genres is applied to the movies_data
           Then the 'mpaa' column should be of type factor
           And have levels 'G', 'PG', 'PG-13', 'R', 'NC-17'",
           code = {
             test_logger(start = "fixture", msg = "test_data.rds")
             # load fixture
             test_data <- readRDS(file = test_path("fixtures", "test_data.rds"))
-            tidy_ggp2 <- tidy_ggp2movies(test_data)
+            tidy_ggp2 <- collapse_movies_genres(test_data)
             testthat::expect_true(is.factor(tidy_ggp2$mpaa))
             testthat::expect_equal(
               object = levels(tidy_ggp2$mpaa),
@@ -230,7 +230,7 @@ And if the helper is *inside* the nested `describe()`, but outside `it()`:
 ```r
 testthat::describe(
   description = "
-    Feature: tidy_ggp2movies Function
+    Feature: collapse_movies_genres Function
       In order to tidy up the movie data
       As a data scientist
       I want to convert ggplot2moves::movies into a 'tidy' data.frame", code = {
@@ -244,13 +244,13 @@ testthat::describe(
         test_logger(start = "fixture", msg = "test_data.rds")
         testthat::it("
       Scenario: Correct formatting of mpaa as factor with specified levels and labels
-          When the function tidy_ggp2movies is applied to the movies_data
+          When the function collapse_movies_genres is applied to the movies_data
           Then the 'mpaa' column should be of type factor
           And have levels 'G', 'PG', 'PG-13', 'R', 'NC-17'",
           code = {
             # load fixture
             test_data <- readRDS(file = test_path("fixtures", "test_data.rds"))
-            tidy_ggp2 <- tidy_ggp2movies(test_data)
+            tidy_ggp2 <- collapse_movies_genres(test_data)
             testthat::expect_true(is.factor(tidy_ggp2$mpaa))
             testthat::expect_equal(
               object = levels(tidy_ggp2$mpaa),

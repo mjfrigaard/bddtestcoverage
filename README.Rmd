@@ -1,21 +1,30 @@
-bddtestcoverage
-================
+---
+title: "bddtestcoverage"
+output: github_document
+---
 
-A small package for testing [`testthat`’s BDD
-functions](https://testthat.r-lib.org/reference/describe.html).
+
+```{r setup, include=FALSE, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = "#>")
+```
+
+A small package for testing [`testthat`'s BDD functions](https://testthat.r-lib.org/reference/describe.html). 
 
 ## Example
 
-``` r
+```r
 install.packages('pak')
 library(pak)
 # install devtools/usethis and ggplot2movies
 pak::pak('devtools')
 ```
 
-## Package structure
+## Package structure 
 
-``` default
+```{verbatim, eval=FALSE}
 ├── DESCRIPTION
 ├── LICENSE
 ├── LICENSE.md
@@ -52,42 +61,21 @@ pak::pak('devtools')
 
 ## Using `collapse_movies_genres()`
 
-`collapse_movies_genres()` collapses the genre columns in the
-`ggplot2movies::movies` data into a `genre_count` column, a single
-`genres` column (with all genres separated by commas), a `genre` factor
-column with either the single genre or `Multiple genres`.
+`collapse_movies_genres()` collapses the genre columns in the `ggplot2movies::movies` data into a `genre_count` column, a single `genres` column (with all genres separated by commas), a `genre` factor column with either the single genre or `Multiple genres`. 
 
-``` r
+```{r}
 library(bddtestcoverage)
 movie_genres <- collapse_movies_genres(ggplot2movies::movies)
 str(movie_genres)
-#> Classes 'tbl_df', 'tbl' and 'data.frame':    58788 obs. of  10 variables:
-#>  $ title      : chr  "$" "$1000 a Touchdown" "$21 a Day Once a Month" "$40,000" ...
-#>  $ year       : int  1971 1939 1941 1996 1975 2000 2002 2002 1987 1917 ...
-#>  $ length     : int  121 71 7 70 71 91 93 25 97 61 ...
-#>  $ budget     : int  NA NA NA NA NA NA NA NA NA NA ...
-#>  $ rating     : num  6.4 6 8.2 8.2 3.4 4.3 5.3 6.7 6.6 6 ...
-#>  $ votes      : int  348 20 5 6 17 45 200 24 18 51 ...
-#>  $ mpaa       : Factor w/ 5 levels "G","PG","PG-13",..: NA NA NA NA NA NA 4 NA NA NA ...
-#>  $ genre_count: int  2 1 2 1 0 1 2 2 1 0 ...
-#>  $ genres     : chr  "Comedy, Drama" "Comedy" "Animation, Short" "Comedy" ...
-#>  $ genre      : Factor w/ 8 levels "Action","Animation",..: 6 3 6 3 NA 5 6 6 5 NA ...
 ```
 
-``` r
+```{r}
 head(movie_genres[c('genre_count', 'genres', 'genre')])
-#>   genre_count           genres           genre
-#> 1           2    Comedy, Drama Multiple genres
-#> 2           1           Comedy          Comedy
-#> 3           2 Animation, Short Multiple genres
-#> 4           1           Comedy          Comedy
-#> 5           0             <NA>            <NA>
-#> 6           1            Drama           Drama
 ```
 
-# Tests
+# Tests 
 
-``` default
+```{verbatim, eval=FALSE}
 tests
  └── tests
       ├── testthat
@@ -99,12 +87,12 @@ tests
       └── testthat.R
 ```
 
-The test file (`test-collapse_movies_genres.R`) contains the following
-tests:
+
+The test file (`test-collapse_movies_genres.R`) contains the following tests: 
 
 ## Tests using helpers
 
-``` r
+```{r , eval=FALSE}
 # The tests below use the helper from tests/testthat/helper.R
 describe("Feature: (As a ..., In order to ..., I want to ...)", {
     it("Scenario: (Given ... , When ..., Then ...)", {
@@ -149,37 +137,39 @@ describe("Feature: (As a ..., In order to ..., I want to ...)", {
 })
 ```
 
-These tests all pass (and the helper is loaded with
-`devtools:::test_active_file()`).
+These tests all pass (and the helper is loaded with `devtools:::test_active_file()`).
 
-    devtools:::test_active_file()
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 0 ]
-    INFO [2023-10-31 06:42:20] [ START helper = inside describe(it())]
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]
-    INFO [2023-10-31 06:42:20] [ END helper = inside describe(it())]
+```
+devtools:::test_active_file()
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 0 ]
+INFO [2023-10-31 06:42:20] [ START helper = inside describe(it())]
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]
+INFO [2023-10-31 06:42:20] [ END helper = inside describe(it())]
 
-    INFO [2023-10-31 06:42:20] [ START helper = inside describe()]
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ]
-    INFO [2023-10-31 06:42:21] [ END helper = inside describe()]
+INFO [2023-10-31 06:42:20] [ START helper = inside describe()]
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ]
+INFO [2023-10-31 06:42:21] [ END helper = inside describe()]
 
-    INFO [2023-10-31 06:42:21] [ START helper = inside describe(describe())]
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 3 ]
-    INFO [2023-10-31 06:42:21] [ END helper = inside describe(describe())]
+INFO [2023-10-31 06:42:21] [ START helper = inside describe(describe())]
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 3 ]
+INFO [2023-10-31 06:42:21] [ END helper = inside describe(describe())]
 
-    INFO [2023-10-31 06:42:21] [ START helper = inside describe(describe(it()))]
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 4 ]
-    INFO [2023-10-31 06:42:22] [ END helper = inside describe(describe(it()))]
+INFO [2023-10-31 06:42:21] [ START helper = inside describe(describe(it()))]
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 4 ]
+INFO [2023-10-31 06:42:22] [ END helper = inside describe(describe(it()))]
+```
 
-### Coverage
+### Coverage 
 
-<img src="man/figures/helper_coverage.png" width="90%" style="display: block; margin: auto;" />
+```{r helper_coverage.png, echo=FALSE, out.width='90%', fig.align='center'}
+knitr::include_graphics("man/figures/helper_coverage.png")
+```
 
-## Tests using fixtures
+## Tests using fixtures 
 
-The tests below use the data from
-`tests/testthat/fixtures/test_data.rds`:
+The tests below use the data from `tests/testthat/fixtures/test_data.rds`:
 
-``` r
+```{r , eval=FALSE}
 # inside it() with single describe() 
 describe("Feature: (As a ..., In order to ..., I want to ...)", {
     it("Scenario: (Given ... , When ..., Then ...)", {
@@ -204,18 +194,22 @@ describe("Feature: (As a ..., In order to ..., I want to ...)", {
 
 These tests pass:
 
-    devtools:::test_active_file()
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ]
+```
+devtools:::test_active_file()
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ]
+```
 
 ### Coverage
 
 But the test coverage is 0.0%
 
-<img src="man/figures/fixture_coverage.png" width="90%" style="display: block; margin: auto;" />
+```{r fixture_coverage.png, echo=FALSE, out.width='90%', fig.align='center'}
+knitr::include_graphics("man/figures/fixture_coverage.png")
+```
 
 ## Tests using helpers and fixtures
 
-``` r
+```{r, eval=FALSE}
 describe("Feature: (As a ..., In order to ..., I want to ...)", {
   ## call helper ----
   test_logger(start = "helper/fixture", msg = "inside describe()")
@@ -276,26 +270,31 @@ describe("Feature: (As a ..., In order to ..., I want to ...)", {
 
 These tests pass:
 
-    devtools:::test_active_file()
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 0 ]
-    INFO [2023-10-31 07:03:53] [ START helper/fixture = inside describe()]
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]
-    INFO [2023-10-31 07:03:53] [ END helper/fixture = inside describe()]
+```
+devtools:::test_active_file()
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 0 ]
+INFO [2023-10-31 07:03:53] [ START helper/fixture = inside describe()]
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]
+INFO [2023-10-31 07:03:53] [ END helper/fixture = inside describe()]
 
-    INFO [2023-10-31 07:03:53] [ START helper/fixture = inside describe(it())]
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ]
-    INFO [2023-10-31 07:03:53] [ END helper/fixture = inside describe(it())]
+INFO [2023-10-31 07:03:53] [ START helper/fixture = inside describe(it())]
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ]
+INFO [2023-10-31 07:03:53] [ END helper/fixture = inside describe(it())]
 
-    INFO [2023-10-31 07:03:53] [ START helper/fixture = inside describe(describe(test_that()))]
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 3 ]
-    INFO [2023-10-31 07:03:53] [ END helper/fixture = inside describe(describe(test_that()))]
+INFO [2023-10-31 07:03:53] [ START helper/fixture = inside describe(describe(test_that()))]
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 3 ]
+INFO [2023-10-31 07:03:53] [ END helper/fixture = inside describe(describe(test_that()))]
 
-    INFO [2023-10-31 07:03:53] [ START helper/fixture = inside describe(describe(it()))]
-    [ FAIL 0 | WARN 0 | SKIP 0 | PASS 4 ]
-    INFO [2023-10-31 07:03:53] [ END helper/fixture = inside describe(describe(it()))]
+INFO [2023-10-31 07:03:53] [ START helper/fixture = inside describe(describe(it()))]
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 4 ]
+INFO [2023-10-31 07:03:53] [ END helper/fixture = inside describe(describe(it()))]
+```
 
-### Coverage
+### Coverage 
 
 But the test coverage is 0.0%
 
-<img src="man/figures/fixture_helper_coverage.png" width="90%" style="display: block; margin: auto;" />
+```{r fixture_helper_coverage.png, echo=FALSE, out.width='90%', fig.align='center'}
+knitr::include_graphics("man/figures/fixture_helper_coverage.png")
+```
+

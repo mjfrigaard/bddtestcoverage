@@ -4,13 +4,13 @@
 #'
 #' @return A tidy `movies` `data.frame`
 #'
-#' @export tidy_ggp2movies
+#' @export collapse_movies_genres
 #'
 #'
 #' @examples
 #' require(ggplot2movies)
-#' tidy_ggp2movies(ggplot2movies::movies)
-tidy_ggp2movies <- function(movies_data) {
+#' collapse_movies_genres(ggplot2movies::movies)
+collapse_movies_genres <- function(movies_data) {
   # specify genre columns
   genre_cols <- c(
     "Action", "Animation",

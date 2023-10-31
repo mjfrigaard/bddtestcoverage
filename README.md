@@ -1,6 +1,6 @@
 # bddtestcoverage
 
-A small package for testing [`testthat``s BDD functions](https://testthat.r-lib.org/reference/describe.html). 
+A small package for testing [`testthat`'s BDD functions](https://testthat.r-lib.org/reference/describe.html). 
 
 ## Example
 

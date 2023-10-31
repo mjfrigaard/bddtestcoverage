@@ -43,22 +43,21 @@ The `Background` keyword can be used to specify steps or conditions that exist b
 ```gherkin
   Scenario: Create `genre_count` categorical column 
     When the function tidy_ggp2movies is applied to the movies_data
-    Then the new `genre_count` column should represent the sum of genres per movie
-    And the `genre_count` column should be of type integer
-
+    Then the `genre_count` column should be of type integer
+    And the new `genre_count` column should represent the sum of genres per movie
+    
   Scenario: Create `genre` categorical column 
     When the function tidy_ggp2movies is applied to the movies_data
     Then the new `genres` column should list the genres per movie separated by commas
-    And `genre` should categorize movies with multiple genres as `Multiple genres`
     And `genre` should be of type factor
+    And `genre` should categorize movies with multiple genres as `Multiple genres`
     
-
   Scenario: Convert `mpaa` to factor with specified levels
     When the function tidy_ggp2movies is applied to the movies_data
     Then the `mpaa` column should be of type factor
     And have levels `G`, `PG`, `PG-13`, `R`, `NC-17`
 
-  Scenario: Correct reduction of dataframe columns
+  Scenario: Correct columns in tidy ggplot2movies::movies data
     When the function tidy_ggp2movies is applied to the movies_data
     Then the output dataframe should have columns:
     `title`,  `year`,  `length`,  `budget`,  `rating`,

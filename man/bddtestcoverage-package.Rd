@@ -4,15 +4,14 @@
 \name{bddtestcoverage-package}
 \alias{bddtestcoverage}
 \alias{bddtestcoverage-package}
-\title{bddtestcoverage: Package to exercise tests under test coverage}
+\title{bddtestcoverage: BDD test functions and coverage}
 \description{
-Designed to test BDD functions with test coverage.
+Package designed to explore BDD functions and test coverage.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://github.com/mjfrigaard/bddtestcoverage}
-  \item Report bugs at \url{https://github.com/mjfrigaard/bddtestcoverage/issues}
 }
 
 }

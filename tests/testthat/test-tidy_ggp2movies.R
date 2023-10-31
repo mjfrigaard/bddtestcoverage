@@ -1,6 +1,6 @@
 
 # FIXTURE DATA TESTS: ----
-# Thetests below use the data from tests/testthat/fixtures/test_data.rds
+# Thet tests below use the data from tests/testthat/fixtures/test_data.rds
 # helper called nside it() (in two nested describe() calls)  ==================
 describe("Feature: (As a ..., In order to ..., I want to ...)", {
   describe("Background (Given ...)", {

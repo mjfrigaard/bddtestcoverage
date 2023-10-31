@@ -2,7 +2,7 @@ Package: bddtestcoverage
 Title: BDD test functions and coverage
 Version: 0.0.0.9000
 Authors: Martin Frigaard <mjfrigaard@pm.me> [aut, cre]
-Description: Package designed to try BDD functions and test coverage.
+Description: Package designed to explore BDD functions and test coverage.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
